@@ -64,20 +64,19 @@ int main(int argc, char *argv[]) {
 			return 1;
 		}
 
-		// fstcompile
-		const SymbolTable *ssyms = 0;
-		fst::SymbolTableTextOptions opts;
-		const SymbolTable *isyms = SymbolTable::ReadText(words_filename, opts);
-		if (!isyms) { return 1; }
-		const SymbolTable *osyms = SymbolTable::ReadText(words_filename, opts);
-		if (!osyms) { return 1; }
-		std::ifstream grammar_fst_file(grammar_fst_filename.c_str());
-		FstCompiler<StdArc> fstcompiler(grammar_fst_file, "", isyms,
-			osyms, ssyms,
-			false, false,
-			false, false,
-			false);
-		VectorFst<StdArc> grammar_fst = fstcompiler.Fst();
+        // fstcompile
+        SymbolTable *ssyms = 0;
+        SymbolTable *isyms = SymbolTable::ReadText(words_filename);
+        if (!isyms) { return 1; }
+        SymbolTable *osyms = SymbolTable::ReadText(words_filename);
+        if (!osyms) { return 1; }
+        std::ifstream grammar_fst_file(grammar_fst_filename.c_str());
+        FstCompiler<StdArc> fstcompiler(grammar_fst_file, "", isyms,
+            osyms, ssyms,
+            false, false,
+            false, false,
+            false);
+        VectorFst<StdArc> grammar_fst = fstcompiler.Fst();
 
 		// fsttablecompose
 		VectorFst<StdArc> *lang_disambig_fst = ReadFstKaldi(lang_disambig_fst_filename);

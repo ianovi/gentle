@@ -1,5 +1,6 @@
 // refactor of online2-wav-nnet3-latgen-faster.cc
 
+#include <string>
 #include "online2/online-nnet3-decoding.h"
 #include "online2/online-nnet2-feature-pipeline.h"
 #include "online2/onlinebin-util.h"
@@ -105,8 +106,8 @@ int main(int argc, char *argv[]) {
     const std::string nnet3_rxfilename = nnet_dir + "/final.mdl";
 
     const std::string word_syms_rxfilename = graph_dir + "/words.txt";
-    const string word_boundary_filename = graph_dir + "/phones/word_boundary.int";
-    const string phone_syms_rxfilename = graph_dir + "/phones.txt";
+    const std::string word_boundary_filename = graph_dir + "/phones/word_boundary.int";
+    const std::string phone_syms_rxfilename = graph_dir + "/phones.txt";
 
     WordBoundaryInfoNewOpts opts; // use default opts
     WordBoundaryInfo word_boundary_info(opts, word_boundary_filename);
