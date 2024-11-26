@@ -1,32 +1,20 @@
-FROM ubuntu:18.04
+FROM ubuntu:22.04
 
-RUN DEBIAN_FRONTEND=noninteractive && \
-	apt-get update && \
-	apt-get install -y \
-		gcc g++ gfortran \
-		libc++-dev \
-		libstdc++-6-dev zlib1g-dev \
-		automake autoconf libtool \
-		git subversion \
-		libatlas3-base \
-		nvidia-cuda-dev \
-		ffmpeg \
-		python3 python3-dev python3-pip \
-		python python-dev python-pip \
-		wget unzip && \
-	apt-get clean
+RUN DEBIAN_FRONTEND=noninteractive && apt update
+RUN apt install -y zlib1g-dev automake git libtool subversion libatlas3-base python3-pip python3-venv wget unzip ffmpeg sox gfortran
 
-ADD ext /gentle/ext
-RUN export MAKEFLAGS=' -j8' &&  cd /gentle/ext && \
-	./install_kaldi.sh && \
-	make depend && make && rm -rf kaldi *.o
+COPY . /gentle
 
-ADD . /gentle
-RUN cd /gentle && python3 setup.py develop
-RUN cd /gentle && ./install_models.sh
+RUN git submodule init && git submodule update
+
+RUN cd /gentle/ext && ./install_kaldi.sh
+RUN cd /gentle && unzip models.zip && rm models.zip
+RUN cd /gentle/ext && make depend && make
+
+RUN python3 -m pip install -e . && python3 -m pip install build service_identity && python3 -m build
 
 EXPOSE 8765
 
 VOLUME /gentle/webdata
 
-CMD cd /gentle && python3 serve.py
+CMD cd /gentle && python3 serve_ssl.py
