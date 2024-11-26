@@ -5,7 +5,7 @@ RUN apt install -y zlib1g-dev automake git libtool subversion libatlas3-base pyt
 
 COPY . /gentle
 
-RUN git submodule init && git submodule update
+RUN cd /gentle && git submodule init && git submodule update
 
 RUN cd /gentle/ext && ./install_kaldi.sh
 RUN cd /gentle && unzip models.zip && rm models.zip
