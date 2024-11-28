@@ -6,12 +6,12 @@ APP_PATH="/gentle"
 ln -s /opt/kaldi $APP_PATH/ext/kaldi
 
 # Change to the ext directory and run the make commands
-cd $APP_PATH/ext
+cd $APP_PATH/ext || exit
 make depend
 make
 
 # Install models
-cd $APP_PATH
+cd $APP_PATH || exit
 unzip models.zip
 
 # Install Python dependencies
