@@ -1,0 +1,22 @@
+services:
+  aligner:
+    container_name: tta.${COMPOSE_PROJECT_NAME}
+    build:
+      context: .
+      dockerfile: new.Dockerfile
+    image: ${COMPOSE_PROJECT_NAME}/tta
+    init: true
+    volumes:
+      - ./:/gentle
+    hostname: tta.speechpad
+    working_dir: /gentle
+#    restart: unless-stopped
+    restart: no
+    ports:
+      - "8766:8765"
+    logging:
+      options:
+        max-size: "50m"
+        max-file: "4"
+#    command: ["tail", "-f", "/dev/null"]
+#    command: ["echo", "First-time custom CMD"]

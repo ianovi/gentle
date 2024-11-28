@@ -1,7 +1,7 @@
-/examples/data/
-/dist/
-/webdata/
-/gentle.egg-info/
+examples/data/
+dist/
+webdata/
+gentle.egg-info/
 
 /ext/kaldi/*
 ext/*.o
@@ -13,4 +13,4 @@ ext/m3
 *.swp
 *~
 
-/.idea/
+.idea/
