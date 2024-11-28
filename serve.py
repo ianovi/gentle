@@ -134,7 +134,7 @@ class TranscriptionsController(Resource):
         self.transcriber = transcriber
 
     def getChild(self, uid, req):
-        request.setHeader(b"Access-Control-Allow-Origin", b"*")
+        req.setHeader(b"Access-Control-Allow-Origin", b"*")
         uid = uid.decode()
         out_dir = self.transcriber.out_dir(uid)
         trans_ctrl = File(out_dir)
