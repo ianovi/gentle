@@ -281,9 +281,9 @@ if __name__=='__main__':
                         help='number of full-transcription threads (memory intensive)')
     parser.add_argument('--log', default="INFO",
                         help='the log level (DEBUG, INFO, WARNING, ERROR, or CRITICAL)')
-    parser.add_argument('--ssl-cert', default='/etc/ssl/certs/nginx-selfsigned.crt',
+    parser.add_argument('--ssl-cert', default='./ssl/speechpad.com.crt',
                         help='path to SSL certificate file')
-    parser.add_argument('--ssl-key', default='/etc/ssl/private/nginx-selfsigned.key',
+    parser.add_argument('--ssl-key', default='./ssl/speechpad.com.key',
                         help='path to SSL key file')
 
     args = parser.parse_args()

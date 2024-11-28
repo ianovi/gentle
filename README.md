@@ -8,10 +8,10 @@ There are three ways to install Gentle.
 1. Download the [pre-built Mac application](https://github.com/lowerquality/gentle/releases/latest). This package includes a GUI that will start the server and a browser. It only works on Mac OS.
 2. Use the [Docker](https://www.docker.com/) image. 
    * Clone repository from [here](git@github.com:ianovi/gentle.git) 
-   * Build docker image ```docker build -t ianovi/gentle .```
+   * Build docker image ```docker compose build```
    * Generate self-signed certificate and key files for HTTPS. 
-     * ```sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt```
-   * Run container ```docker run --name sp/gentle -p 8765:8765 ianovi/gentle```.
+     * ```openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ./ssl/speechpad.com.key -out ./ssl/speechpad.com.crt```
+   * Run container ```docker compose uo -d```.
 3. Download the source code and run ```./install.sh```. Then run ```python3 serve.py``` to start the server. This works on Mac and Linux.
 
 ## Using Gentle
