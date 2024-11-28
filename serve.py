@@ -1,7 +1,7 @@
 from twisted.web.static import File
 from twisted.web.resource import Resource
 from twisted.web.server import Site, NOT_DONE_YET
-from twisted.internet import reactor, threads
+from twisted.internet import reactor, threads, ssl
 from twisted.web._responses import FOUND
 
 import json
@@ -229,7 +229,7 @@ class TranscriptionZipper(Resource):
         else:
             return Resource.getChild(self, path, req)
 
-def serve(port=8765, interface='0.0.0.0', installSignalHandlers=0, nthreads=4, ntranscriptionthreads=2, data_dir=get_datadir('webdata')):
+def serve(port=8765, interface='0.0.0.0', installSignalHandlers=0, nthreads=4, ntranscriptionthreads=2, data_dir=get_datadir('webdata'), ssl_cert_file=None, ssl_key_file=None):
     logging.info("SERVE %d, %s, %d", port, interface, installSignalHandlers)
 
     if not os.path.exists(data_dir):
@@ -254,7 +254,13 @@ def serve(port=8765, interface='0.0.0.0', installSignalHandlers=0, nthreads=4, n
 
     s = Site(f)
     logging.info("about to listen")
-    reactor.listenTCP(port, s, interface=interface)
+
+    if ssl_cert_file and ssl_key_file:
+        sslContext = ssl.DefaultOpenSSLContextFactory(ssl_key_file, ssl_cert_file)
+        reactor.listenSSL(port, s, sslContext, interface=interface)
+    else:
+        reactor.listenTCP(port, s, interface=interface)
+
     logging.info("listening")
 
     reactor.run(installSignalHandlers=installSignalHandlers)
@@ -275,6 +281,10 @@ if __name__=='__main__':
                         help='number of full-transcription threads (memory intensive)')
     parser.add_argument('--log', default="INFO",
                         help='the log level (DEBUG, INFO, WARNING, ERROR, or CRITICAL)')
+    parser.add_argument('--ssl-cert', default='/gentle/ssl/speechpad.com.crt',
+                        help='path to SSL certificate file')
+    parser.add_argument('--ssl-key', default='/gentle/ssl/speechpad.com.key',
+                        help='path to SSL key file')
 
     args = parser.parse_args()
 
@@ -284,4 +294,4 @@ if __name__=='__main__':
     logging.info('gentle %s' % (gentle.__version__))
     logging.info('listening at %s:%d\n' % (args.host, args.port))
 
-    serve(args.port, args.host, nthreads=args.nthreads, ntranscriptionthreads=args.ntranscriptionthreads, installSignalHandlers=1)
+    serve(args.port, args.host, nthreads=args.nthreads, ntranscriptionthreads=args.ntranscriptionthreads, installSignalHandlers=1, ssl_cert_file=args.ssl_cert, ssl_key_file=args.ssl_key)

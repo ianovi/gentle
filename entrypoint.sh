@@ -24,6 +24,6 @@ cd "$APP_PATH"
 source ./venv/bin/activate
 echo "Running default CMD from Dockerfile..."
 # shellcheck disable=SC2145
-echo "ececuting: $@"
+echo "executing: $@"
 # shellcheck disable=SC2068
 exec $@

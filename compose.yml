@@ -16,7 +16,7 @@ services:
     ports:
       - "8765:8765"
     entrypoint: "/usr/local/bin/entrypoint.sh"
-    command: ["python", "${APP_SCRIPT:-serve_ssh.py}"]
+    command: ["python", "serve.py"]
     logging:
       options:
         max-size: "50m"
