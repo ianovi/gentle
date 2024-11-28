@@ -1,15 +1,21 @@
 #!/bin/bash
 
-# create symbolic link to the kaldi directory (link /gentle/ext/kaldi to source /opt/kaldi
-ln -s /opt/kaldi /gentle/ext/kaldi
-cd ext && make depend && make
+APP_PATH="/gentle"
 
-# install models
-#cd ..
-#&& git lfs pull && unzip models.zip
-# && rm models.zip
+# Create a symbolic link to the kaldi sources directory
+ln -s /opt/kaldi $APP_PATH/ext/kaldi
 
-# install python dependencies
-cd /gentle && python3 -m venv /venv && source /venv/bin/activate && pip install --upgrade pip \
-&& pip install -e .
-# && pip install build service_identity && python -m build
+# Change to the ext directory and run the make commands
+cd $APP_PATH/ext
+make depend
+make
+
+# Install models
+cd $APP_PATH
+unzip models.zip
+
+# Install Python dependencies
+python3 -m venv /venv
+source /venv/bin/activate
+pip install --upgrade pip
+pip install -e .
