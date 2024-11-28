@@ -14,7 +14,7 @@ services:
     working_dir: /gentle
     restart: unless-stopped
     ports:
-      - "8766:8765"
+      - "8765:8765"
     entrypoint: "/usr/local/bin/entrypoint.sh"
     command: ["python", "${APP_SCRIPT:-serve_ssh.py}"]
     logging:
