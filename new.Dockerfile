@@ -1,9 +1,7 @@
 # Description: Dockerfile for Gentle TTA (Text-to-Audio Alignment)
 
-# Use the official image as a parent image for AMD64 architecture
-#FROM kaldiasr/kaldi:cpu-latest
-# Use the unofficial image as a parent image for ARM architecture
-FROM kaldi:arm
+ARG BASE_DOCKER_IMAGE
+FROM ${BASE_DOCKER_IMAGE:-kaldiasr/kaldi:cpu-latest}
 
 # Install the necessary packages
 RUN DEBIAN_FRONTEND=noninteractive \

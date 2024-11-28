@@ -4,6 +4,8 @@ services:
     build:
       context: .
       dockerfile: new.Dockerfile
+      args:
+        - BASE_DOCKER_IMAGE=${BASE_DOCKER_IMAGE}
     image: ${COMPOSE_PROJECT_NAME}/tta
     init: true
     volumes:
