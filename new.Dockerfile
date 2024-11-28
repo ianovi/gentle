@@ -22,9 +22,3 @@ WORKDIR /gentle
 # Copy the custom entrypoint
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
-
-# Set the entrypoint
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-
-# Specify CMD for subsequent launches
-CMD ["python serve_ssh.py"]
