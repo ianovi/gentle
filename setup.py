@@ -9,7 +9,7 @@ setup(
     author='Robert M Ochshorn',
     license='MIT',
     packages=find_packages(),
-    install_requires=['twisted', 'pyOpenSSL'],
+    install_requires=['twisted', 'pyOpenSSL', 'service_identity'],
     setup_requires=['wheel'],
     entry_points={
         'console_scripts': [

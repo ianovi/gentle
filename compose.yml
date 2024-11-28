@@ -10,8 +10,7 @@ services:
       - ./:/gentle
     hostname: tta.speechpad
     working_dir: /gentle
-#    restart: unless-stopped
-    restart: no
+    restart: unless-stopped
     ports:
       - "8766:8765"
     logging:
@@ -19,4 +18,3 @@ services:
         max-size: "50m"
         max-file: "4"
 #    command: ["tail", "-f", "/dev/null"]
-#    command: ["echo", "First-time custom CMD"]

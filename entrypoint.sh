@@ -1,7 +1,8 @@
 #!/bin/bash
 
-INITIALIZATION_FLAG="/gentle/.initialized"
-SETUP_SCRIPT="/gentle/setup.sh"
+APP_PATH="/gentle"
+INITIALIZATION_FLAG="$APP_PATH/.initialized"
+SETUP_SCRIPT="$APP_PATH/setup.sh"
 SLEEP_DURATION=2
 
 if [ ! -f "$INITIALIZATION_FLAG" ]; then
@@ -16,9 +17,10 @@ if [ ! -f "$INITIALIZATION_FLAG" ]; then
 
     touch "$INITIALIZATION_FLAG"
     echo "Initialization complete!"
-
-    exec "$@"
-else
-    echo "Running default CMD from Dockerfile..."
-    exec "$@"
 fi
+
+# shellcheck disable=SC2164
+cd "$APP_PATH"
+source ./venv/bin/activate
+echo "Running default CMD from Dockerfile..."
+exec $@

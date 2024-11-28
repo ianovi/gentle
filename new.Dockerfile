@@ -29,4 +29,4 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 # Specify CMD for subsequent launches
-CMD ["python /gentle/serve.py"]
+CMD ["python serve_ssh.py"]

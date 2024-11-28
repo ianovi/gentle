@@ -15,7 +15,7 @@ cd $APP_PATH
 unzip models.zip
 
 # Install Python dependencies
-python3 -m venv /venv
-source /venv/bin/activate
+python3 -m venv ./venv
+source ./venv/bin/activate
 pip install --upgrade pip
 pip install -e .
