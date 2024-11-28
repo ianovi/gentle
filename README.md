@@ -7,7 +7,7 @@ There are three ways to install Gentle.
 
 1. Download the [pre-built Mac application](https://github.com/lowerquality/gentle/releases/latest). This package includes a GUI that will start the server and a browser. It only works on Mac OS.
 2. Use the [Docker](https://www.docker.com/) image. 
-   * Clone repository from [here](git@github.com:ianovi/gentle.git) 
+   * Clone repository from [here](https://github.com/ianovi/gentle.git) 
    * Build docker image ```docker compose build```
    * Generate self-signed certificate and key files for HTTPS. 
      * ```openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ./ssl/speechpad.com.key -out ./ssl/speechpad.com.crt```
